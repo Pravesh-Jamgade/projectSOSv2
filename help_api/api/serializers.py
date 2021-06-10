@@ -13,27 +13,20 @@ class AddressSerializer(serializers.ModelSerializer):
         model = AddressModel
         fields = '__all__'
 
-
 class EntitySerializer(serializers.ModelSerializer):
     class Meta:
         model = EntityModel
         fields = ['entity_id', 'entity_name', 'entity_type']
 
-
 class SOSSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = SOSModel
         fields = ['sos_id', 'sos_description', 'sos_from',
                   'sos_state', 'sos_tag', 'sos_date']
 
-# 'sos_id', 'sos_description', 'sos_from',
-#                   'sos_state', 'sos_tag', 'entity'
-
-
 class SOSInfoSerializer(serializers.ModelSerializer):
     sos = serializers.SerializerMethodField(source='get_sos')
-    address = serializers.SerializerMethodField(source='get_sos')
+    address = serializers.SerializerMethodField(source='get_address')
 
     def get_sos(self, obj):
         qs = SOSModel.objects.filter(sos_from=obj.entity_id)
@@ -46,12 +39,6 @@ class SOSInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = EntityModel
         fields = ['entity_name', 'entity_id', 'sos', 'address']
-
-    # sos = SOSSerializer(many=True)
-
-    # class Meta:
-    #     model = EntityModel
-    #     fields = ['entity_name', 'entity_type', 'sos']
 
 
 class RegisterEntitySerializer(serializers.ModelSerializer):
@@ -75,3 +62,9 @@ class RegisterAddressSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("lane and town cannot be empty")
 
         return data
+
+
+class ToolsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ToolsModel
+        fields = '__all__'

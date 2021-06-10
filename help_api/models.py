@@ -48,5 +48,4 @@ class SOSModel(models.Model):
     sos_state = models.CharField(max_length=3, choices=STATUS, default="IE")
     sos_tag = models.CharField(max_length=4, choices=TAG, default="NL")
 
-
 # Create your models here.

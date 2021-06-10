@@ -1,19 +1,29 @@
 from django.contrib import admin
-from django.conf.urls import url, include
+from django.conf.urls import url, include, re_path
+from django.urls import path
 from help_api.api.views import *
 
 app_name = 'api'
 urlpatterns = [
-    url('get/address/', AddressView.as_view(), name="address-all-entity-api"),
-    url('get/address/(?P<id>[0-9a-z]{32}\Z)/$',
-        AddressView.as_view(), name="address-entity-api"),
+    
+    path(r'register_entity/', RegisterEntityView.as_view(), name="save-entity-api"),
+    path('entity/<str:name>/', getEntityDetail, name="get-named-entity-api"),
+    path('entity/all/', getAllEntityDetails, name="get-all-entity-api"),
+    path('sosgetall/', SOSView.as_view(), name="get-all-sos-view"),
+    path('sospost/', SOSView.as_view(), name="save-sos-view"),
+    path('sosgetone/(?P<pk>[a-zA-Z0-9-]+)/', SOSViewUpdate.as_view(), name="get-with-id-sos-view"),
+    path('sosupdate/(?P<pk>[a-zA-Z0-9-]+)/', SOSViewUpdate.as_view(), name="update-sos-view"),
+    
 
-    url('save/entity/', RegisterEntityView.as_view(), name="save-entity-api"),
-    url('get/entity/', EntityView.as_view(), name="get-all-entity-api"),
-    url('get/entity/<entity_name>/', EntityView.as_view(),
-        name="get-named-entity-api"),
+    # path('addr/<str:name>', AddressView.as_view(), name="get-addr-entity").
+    path('addr/save', AddressView.as_view(), name="save-addr-entity"),
 
-    url('get/sosinfo/', SOSView.as_view(),
-        name="get-sosinfo-api"),
+    #''' http://127.0.0.1:8000/help/toolsgetall?rate=6 '''
+    path('toolsgetall/', ToolsView.as_view(), name="get-all-tools"),
+    path('toolspost/', ToolsView.as_view(), name="save-tool"),
+    
+    
+    #w
+    url('test', test, name="test-api"),
 
 ]
