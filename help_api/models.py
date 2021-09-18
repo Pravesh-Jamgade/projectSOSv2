@@ -49,3 +49,11 @@ class SOSModel(models.Model):
     sos_tag = models.CharField(max_length=4, choices=TAG, default="NL")
 
 # Create your models here.
+
+
+# class UserModel(models.Model):
+#     user_ph = models.CharField(max_length=10)
+#     user_email = model.EmailField()
+#     user_verified = model.BooleanField()
+#     user_pass = model.CharField(max_length=10)
+#     user_created_at = model.DateTimeField(auto_now=True)

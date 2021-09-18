@@ -235,4 +235,3 @@ class SOSViewUpdate(APIView):
 # 3 by tag requirement
 
 
-
